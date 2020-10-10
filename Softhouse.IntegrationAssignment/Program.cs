@@ -38,7 +38,6 @@ namespace Softhouse.IntegrationAssignment
         if (args.Length >= 2)
         {
           output = args[1];
-          Console.WriteLine(output);
           ParseFile(source, output);
         }
         else
