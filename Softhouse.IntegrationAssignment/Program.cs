@@ -38,24 +38,7 @@ namespace Softhouse.IntegrationAssignment
         if (args.Length >= 2)
         {
           output = args[1];
-          string outputPath, outputFileName;
-          try
-          {
-            outputPath = Path.GetFullPath(output);
-            if (!Directory.Exists(outputPath))
-            {
-              Console.Error.WriteLine($"Invalid file path: {outputPath}");
-              ShowHelp();
-              return;
-            }
-            outputFileName = Path.GetFileName(output);
-            output = Path.Combine(outputPath, outputFileName);
-          }
-          catch (Exception ex)
-          {
-            Console.Error.WriteLine(ex.Message);
-            return;
-          }
+          Console.WriteLine(output);
           ParseFile(source, output);
         }
         else
@@ -125,13 +108,14 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
       try
       {
         Parser parser = new Parser(File.ReadAllText(source));
+        parser.Parse();
         if (parser.Errors.Length > 0)
         {
           Console.Error.WriteLine("Errors\n======\n");
           Console.Error.WriteLine(parser.Errors.ToString());
           Console.Error.WriteLine();
         }
-        return parser.People.ToString();
+        return parser.People.ToXml().ToString();
       }
       catch (Exception ex)
       {
