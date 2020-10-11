@@ -1,6 +1,8 @@
 ﻿using Softhouse.Integration;
 using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace Softhouse.IntegrationAssignment
@@ -94,7 +96,11 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
       {
         try
         {
-          xml.Save(outputFile);
+          using (var writer = new XmlTextWriter(outputFile, new UTF8Encoding(false)))
+          {
+            writer.Formatting = Formatting.Indented;
+            xml.Save(writer);
+          }
         }
         catch (Exception ex)
         {
