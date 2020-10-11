@@ -1,6 +1,7 @@
 ﻿using Softhouse.Integration;
 using System;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Softhouse.IntegrationAssignment
 {
@@ -42,9 +43,9 @@ namespace Softhouse.IntegrationAssignment
         }
         else
         {
-          string xml = ParseFile(source);
+          XElement xml = ParseFile(source);
           if (xml != null)
-            Console.WriteLine(xml);
+            Console.WriteLine(xml.ToString());
         }
       }
     }
@@ -88,12 +89,12 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
 
     private void ParseFile(string source, string outputFile)
     {
-      string xml = ParseFile(source);
+      XElement xml = ParseFile(source);
       if (xml != null)
       {
         try
         {
-          File.WriteAllText(outputFile, xml);
+          xml.Save(outputFile);
         }
         catch (Exception ex)
         {
@@ -102,7 +103,7 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
       }
     }
 
-    private string ParseFile(string source)
+    private XElement ParseFile(string source)
     {
       try
       {
@@ -114,7 +115,7 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
           Console.Error.WriteLine(parser.Errors.ToString());
           Console.Error.WriteLine();
         }
-        return parser.People.ToXml().ToString();
+        return parser.People.ToXml();
       }
       catch (Exception ex)
       {
