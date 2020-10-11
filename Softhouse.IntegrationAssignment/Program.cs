@@ -98,7 +98,7 @@ A | 1600 Pennsylvania Avenue | Washington, D.C";
         }
         catch (Exception ex)
         {
-          Console.WriteLine(ex.Message);
+          Console.Error.WriteLine(ex.Message);
         }
       }
     }
